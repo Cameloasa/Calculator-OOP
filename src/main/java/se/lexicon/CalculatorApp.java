@@ -28,23 +28,22 @@ public class CalculatorApp {
         Scanner scanner = new Scanner(System.in);
         // declare a variable - user's choice
         int choice;
-        /* create a loop do - while
+        //ask user input
+        System.out.println("Enter your choice:");
+        /* create a loop do(display menu) - if(choice is not zero) - while
         Print menu for user while user's choice is not zero
          */
-        System.out.println("Enter your choice:");
         do {
             displayMenu();
             choice = scanner.nextInt();
-
-            performOperation(choice);
-
-            break;
+            if (choice != 0) {
+                double result = performOperation(choice);
+                System.out.println("Result: " + result);}
         }while (choice !=0);
-        double result = performOperation(choice);
-        System.out.println("result = " + result);
+
+        System.out.println("Application exit :");
 
     }
-
 
 
     /*PrintMenu
@@ -57,7 +56,7 @@ public class CalculatorApp {
         out.println("2.Subtraction :");
         out.println("3.Multiplication :");
         out.println("4.Division :");
-
+        out.println("0.Exit :");
     }
 
 
@@ -68,7 +67,6 @@ public class CalculatorApp {
     switch (choice)
      */
     private static double performOperation(int choice){
-        Scanner scanner = new Scanner(in);
         double result = 0.0;
         switch (choice){
             case 1:
@@ -84,7 +82,7 @@ public class CalculatorApp {
                 result = performDivision();
                 break;
             default:
-                out.println("Invalid operation :");
+                throw new IllegalArgumentException("Invalid operation :");
         }
         return result;
 
@@ -125,6 +123,9 @@ public class CalculatorApp {
         double number1 = scanner.nextDouble();
         out.println("Please,enter another number :");
         double number2 = scanner.nextDouble();
+        if (number2 == 0) {
+            throw new IllegalArgumentException("Division by zero is not allowded");
+        }
         return number1 / number2;
     }
 
